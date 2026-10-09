@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <EditText
+        android:id="@+id/nameID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:autofillHints="Name"
+        android:hint="name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailID"
+        android:autofillHints="emailAddress"
+        android:inputType="textEmailAddress"
+        android:hint="email"
+        android:layout_margin="10dp"
+        />
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/passwordID"
+        android:autofillHints="password"
+        android:inputType="textPassword"
+        android:hint="password"
+        android:layout_margin="10dp"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phoneID"
+        android:inputType="phone"
+        android:hint="phone number"
+        android:layout_margin="10dp"
+        />
+
+    <Button
+        android:id="@+id/buttonID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:onClick="SubmitForm"
+        android:text="Submit Details" />
+
+
+</LinearLayout>
