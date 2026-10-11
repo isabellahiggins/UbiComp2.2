@@ -1,16 +1,19 @@
 package com.example.form;
 
+import android.content.ActivityNotFoundException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.content.Intent;
+import android.net.Uri;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText name, password, phone, emailInput;
+    private String valCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +48,35 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(nameCheck && phoneCheck){
-            String key = "name";
-            String value = userName;
 
-            //create intent
-            Intent sendIntent = new Intent(this, ThankYouMessage.class);
-            sendIntent.putExtra(key, value);
+            String email = emailInput.getText().toString();
+            vertifyEmail(new String[]{email}, "Email Validation Code");
 
-            //vertify intent will resolve to activity
-            if (sendIntent.resolveActivity(getPackageManager()) != null){
-                startActivity(sendIntent);
+            Intent vertifyIntent = new Intent(this, VertifyEmail.class);
+            vertifyIntent.putExtra("code", valCode);
+            startActivity(vertifyIntent);
             }
-        }else {
+        else {
             Toast.makeText(this, "Invalid input, please recheck your details entered.",  Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void vertifyEmail(String[] addresses, String subject) {
+        //generate validation code
+        valCode = String.valueOf((int) (Math.random() * 100) + 1);
+
+        //create implicit intent
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+
+        //Only the email app wil handle this intent, no others.
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, "Your code is " + valCode);
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "Email app not found.", Toast.LENGTH_LONG).show();
         }
     }
 }
